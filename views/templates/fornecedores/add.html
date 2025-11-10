@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Adicionar Fornecedor</title>
+</head>
+<body>
+    <h1>Adicionar Fornecedor</h1>
+    <form method="post" action="{{ url_for('fornecedores.add') }}">
+        <label>Nome da Empresa:<br>
+            <input type="text" name="nome_empresa" required>
+        </label><br><br>
+
+        <label>CNPJ:<br>
+            <input type="text" name="cnpj" required>
+        </label><br><br>
+
+        <label>Email:<br>
+            <input type="email" name="email">
+        </label><br><br>
+
+        <label>Telefone:<br>
+            <input type="text" name="telefone">
+        </label><br><br>
+
+        <label>Endereço:<br>
+            <input type="text" name="endereco">
+        </label><br><br>
+
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('fornecedores.home') }}">Cancelar</a>
+    </form>
+</body>
+</html>

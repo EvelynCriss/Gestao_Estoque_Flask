@@ -5,8 +5,8 @@
     <title>Editar Fornecedor</title>
 </head>
 <body>
-    <h1>Editar fornecedor</h1>
-    <form method="post" action="{{ url_for('edit', id=fornecedor.id) }}">
+    <h1>Editar Fornecedor</h1>
+    <form method="post" action="{{ url_for('fornecedores.edit', id=fornecedor.id) }}">
         <label>Nome da Empresa:<br>
             <input type="text" name="nome_empresa" value="{{ fornecedor.nome_empresa }}" required>
         </label><br><br>
@@ -27,8 +27,8 @@
             <input type="text" name="endereco" value="{{ fornecedor.endereco }}">
         </label><br><br>
 
-        <button type="submit">Atualizar</button>
-        <a href="{{ url_for('home') }}">Cancelar</a>
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('fornecedores.home') }}">Cancelar</a>
     </form>
 </body>
 </html>

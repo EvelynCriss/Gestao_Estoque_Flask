@@ -1,6 +1,7 @@
 import mysql.connector
 from config import db_config
 
+
 def inicia_bd():
     try:
         conn = mysql.connector.connect(**db_config)
@@ -12,7 +13,7 @@ def inicia_bd():
 # Modelo para representar um fornecedor
 class Fornecedor:
     @staticmethod
-    def get_fornecedores():
+    def get_fornecedores(): 
         fornecedores = []
         conn = inicia_bd()
         if conn:
