@@ -1,7 +1,16 @@
-<header>
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="contato.html">Contato</a>
+<header class="header">
+  <nav class="container d-flex justify-content-between align-items-center py-3">
+    <!-- Logo -->
+    <a href="/" class="navbar-brand">
+      <img src="{{ url_for('static', filename='imagens/logo_estoque2.png') }}" alt="Logo" class="logo">
+    </a>
+
+    <!-- Links de navegação -->
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a></li>
+      <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+      <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+    </ul>
   </nav>
 </header>

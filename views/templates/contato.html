@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Contato{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">Fale Conosco</h2>
+
+  {% if mensagem %}
+  <div class="alert alert-success">{{ mensagem }}</div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('contato') }}">
+    <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" name="nome" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Mensagem</label>
+      <textarea name="mensagem" class="form-control" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+{% endblock %}

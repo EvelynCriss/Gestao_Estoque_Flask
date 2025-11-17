@@ -1,96 +1,57 @@
 import mysql.connector
 from config import db_config
 
-
-def inicia_bd():
-    try:
-        conn = mysql.connector.connect(**db_config)
-        return conn
-    except mysql.connector.Error as err:
-        print(f"Erro de conexão com o BD: {err}")
-        return None
-
-# Modelo para representar um fornecedor
 class Fornecedor:
-    @staticmethod
-    def get_fornecedores(): 
-        fornecedores = []
-        conn = inicia_bd()
-        if conn:
-            cursor = conn.cursor(dictionary=True)
-            try:
-                cursor.execute("SELECT * FROM gestao_estoque.fornecedores")
-                fornecedores = cursor.fetchall()
-                conn.commit()
-            except mysql.connector.Error as err:
-                print(f"Erro ao buscar fornecedores: {err}")
-            finally:
-                cursor.close()
-                conn.close()
-        return fornecedores
 
-# Criação de um novo fornecedor
     @staticmethod
-    def criar_fornecedor(nome_empresa, cnpj, email, telefone, endereco):
-        conn = inicia_bd()
-        if conn:
-            cursor = conn.cursor()
-            try:
-                query = "INSERT INTO gestao_estoque.fornecedores (nome_empresa, cnpj, email, telefone, endereco) VALUES (%s, %s, %s, %s, %s)"
-                cursor.execute(query, (nome_empresa, cnpj, email, telefone, endereco))
-                conn.commit()
-            except mysql.connector.Error as err:
-                print(f"Erro ao criar fornecedor: {err}")
-                conn.rollback() # Desfaz a transação em caso de erro
-            finally:
-                cursor.close()
-                conn.close()
+    def get_connection():
+        return mysql.connector.connect(**db_config)
+
+    @staticmethod
+    def get_fornecedores():
+        conn = Fornecedor.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM fornecedores ORDER BY id DESC")
+        fornecedores = cursor.fetchall()
+        conn.close()
+        return fornecedores
 
     @staticmethod
     def get_fornecedor(id):
-        fornecedor = None
-        conn = inicia_bd()
-        if conn:
-            cursor = conn.cursor(dictionary=True)
-            try:
-                cursor.execute("SELECT * FROM gestao_estoque.fornecedores WHERE id = %s", (id,))
-                fornecedor = cursor.fetchone()
-                conn.commit()
-            except mysql.connector.Error as err:
-                print(f"Erro ao buscar fornecedor: {err}")
-            finally:
-                cursor.close()
-                conn.close()
+        conn = Fornecedor.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM fornecedores WHERE id = %s", (id,))
+        fornecedor = cursor.fetchone()
+        conn.close()
         return fornecedor
 
     @staticmethod
-    def atualizar_fornecedor(id, nome_empresa, cnpj, email, telefone, endereco):
-        conn = inicia_bd()
-        if conn:
-            cursor = conn.cursor()
-            try:
-                query = "UPDATE gestao_estoque.fornecedores SET nome_empresa=%s, cnpj=%s, email=%s, telefone=%s, endereco=%s WHERE id=%s"
-                cursor.execute(query, (nome_empresa, cnpj, email, telefone, endereco, id))
-                conn.commit()
-            except mysql.connector.Error as err:
-                print(f"Erro ao atualizar fornecedor: {err}")
-                conn.rollback()
-            finally:
-                cursor.close()
-                conn.close()
+    def criar_fornecedor(nome_empresa, cnpj, email=None, telefone=None, endereco=None):
+        conn = Fornecedor.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO fornecedores (nome_empresa, cnpj, email, telefone, endereco)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (nome_empresa, cnpj, email, telefone, endereco))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def atualizar_fornecedor(id, nome_empresa, cnpj, email=None, telefone=None, endereco=None):
+        conn = Fornecedor.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE fornecedores
+            SET nome_empresa=%s, cnpj=%s, email=%s, telefone=%s, endereco=%s
+            WHERE id=%s
+        """, (nome_empresa, cnpj, email, telefone, endereco, id))
+        conn.commit()
+        conn.close()
 
     @staticmethod
     def deletar_fornecedor(id):
-        conn = inicia_bd()
-        if conn:
-            cursor = conn.cursor()
-            try:
-                query = "DELETE FROM gestao_estoque.fornecedores WHERE id = %s"
-                cursor.execute(query, (id,))
-                conn.commit()
-            except mysql.connector.Error as err:
-                print(f"Erro ao deletar fornecedor: {err}")
-                conn.rollback()
-            finally:
-                cursor.close()
-                conn.close()
+        conn = Fornecedor.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM fornecedores WHERE id=%s", (id,))
+        conn.commit()
+        conn.close()
