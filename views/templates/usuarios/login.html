@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+
+    <div class="login-card">
+
+        <h1 class="login-title">Faça Login</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="message-success">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if msg %}
+            <p class="message-error">{{ msg }}</p>
+        {% endif %}
+
+        <!-- FORMULÁRIO -->
+        <form class="login-form" action="{{ url_for('login') }}" method="post">
+
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-input" type="email" id="email" name="email" required>
+
+            <label class="form-label" for="senha">Senha:</label>
+            <input class="form-input" type="password" id="senha" name="senha" required>
+
+            <label class="checkbox-label">
+                <input class="form-checkbox" type="checkbox" id="remember" name="remember">
+                Lembrar-me
+            </label>
+
+            <button class="btn-submit" type="submit">Entrar</button>
+        </form>
+
+        <p class="register-text">
+            Não tem uma conta? 
+            <a class="register-link" href="{{ url_for('registro') }}">Registre-se aqui</a>.
+        </p>
+
+    </div>
+</div>
+{% endblock %}

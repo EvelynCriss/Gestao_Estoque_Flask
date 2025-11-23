@@ -1,33 +1,72 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 
 {% block title %}Adicionar Fornecedor{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Adicionar Fornecedor</h2>
-    <form method="POST">
-        <div class="mb-3">
-            <label class="form-label">Nome da Empresa</label>
-            <input type="text" class="form-control" name="nome_empresa" required>
+<div class="page-header">
+    <h1 class="page-title">Novo Fornecedor</h1>
+    <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Voltar</a>
+</div>
+
+<div class="content-section">
+    <form method="POST" action="{{ url_for('add_fornecedor') }}">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="nome_empresa">Nome da Empresa</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="nome_empresa" 
+                       name="nome_empresa" 
+                       required
+                       placeholder="Digite o nome da empresa">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="cnpj">CNPJ</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="cnpj" 
+                       name="cnpj" 
+                       required
+                       maxlength="18"
+                       placeholder="00.000.000/0000-00">
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">CNPJ</label>
-            <input type="text" class="form-control" name="cnpj" required>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       name="email"
+                       placeholder="contato@empresa.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="telefone">Telefone</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="telefone" 
+                       name="telefone"
+                       maxlength="15"
+                       placeholder="(00) 00000-0000">
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email">
+
+        <div class="form-group">
+            <label class="form-label" for="endereco">Endereço Completo</label>
+            <textarea class="form-control" 
+                      id="endereco" 
+                      name="endereco" 
+                      rows="3"
+                      placeholder="Rua, número, bairro, cidade - UF, CEP"></textarea>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Telefone</label>
-            <input type="text" class="form-control" name="telefone">
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Salvar Fornecedor</button>
+            <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Cancelar</a>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Endereço</label>
-            <input type="text" class="form-control" name="endereco">
-        </div>
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
 {% endblock %}

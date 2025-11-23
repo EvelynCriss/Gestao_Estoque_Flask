@@ -1,33 +1,76 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 
 {% block title %}Editar Fornecedor{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Editar Fornecedor</h2>
-    <form method="POST">
-        <div class="mb-3">
-            <label class="form-label">Nome da Empresa</label>
-            <input type="text" class="form-control" name="nome_empresa" value="{{ fornecedor.nome_empresa }}" required>
+<div class="page-header">
+    <h1 class="page-title">Editar Fornecedor</h1>
+    <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Voltar</a>
+</div>
+
+<div class="content-section">
+    <form method="POST" action="{{ url_for('edit_fornecedor', id=fornecedor.id) }}">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="nome_empresa">Nome da Empresa</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="nome_empresa" 
+                       name="nome_empresa" 
+                       value="{{ fornecedor.nome_empresa }}"
+                       required
+                       placeholder="Digite o nome da empresa">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="cnpj">CNPJ</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="cnpj" 
+                       name="cnpj" 
+                       value="{{ fornecedor.cnpj }}"
+                       required
+                       maxlength="18"
+                       placeholder="00.000.000/0000-00">
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">CNPJ</label>
-            <input type="text" class="form-control" name="cnpj" value="{{ fornecedor.cnpj }}" required>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       name="email"
+                       value="{{ fornecedor.email or '' }}"
+                       placeholder="contato@empresa.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="telefone">Telefone</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="telefone" 
+                       name="telefone"
+                       value="{{ fornecedor.telefone or '' }}"
+                       maxlength="15"
+                       placeholder="(00) 00000-0000">
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="{{ fornecedor.email }}">
+
+        <div class="form-group">
+            <label class="form-label" for="endereco">Endereço Completo</label>
+            <textarea class="form-control" 
+                      id="endereco" 
+                      name="endereco" 
+                      rows="3"
+                      placeholder="Rua, número, bairro, cidade - UF, CEP">{{ fornecedor.endereco or '' }}</textarea>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Telefone</label>
-            <input type="text" class="form-control" name="telefone" value="{{ fornecedor.telefone }}">
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Atualizar Fornecedor</button>
+            <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Cancelar</a>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Endereço</label>
-            <input type="text" class="form-control" name="endereco" value="{{ fornecedor.endereco }}">
-        </div>
-        <button type="submit" class="btn btn-success">Atualizar</button>
-        <a href="{{ url_for('listar_fornecedores') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
 {% endblock %}

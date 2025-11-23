@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Gestão de Estoques{% endblock %}</title>
+    
+    <!-- CSS do Sistema Administrativo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <!-- Header Administrativo -->
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='imagens/logo_estoque2.png') }}" alt="Logo" class="logo">
+        </div>
+        
+        <div class="header-actions">
+            <div class="profile">
+                <div class="profile-icon">👤</div>
+                <span class="profile-name">Administrador</span>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="{{ url_for('dashboard') }}" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">DASHBOARD</span>
+            </a>
+            <a href="{{ url_for('listar_fornecedores') }}" class="nav-item {% if 'fornecedor' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">🏢</span>
+                <span class="nav-text">FORNECEDORES</span>
+            </a>
+            <a href="{{ url_for('listar_pedidos') }}" class="nav-item {% if 'pedidos' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">📋</span>
+                <span class="nav-text">PEDIDOS</span>
+            </a>
+            <a href="{{ url_for('listar_produtos') }}" class="nav-item {% if 'produtos' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">📦</span>
+                <span class="nav-text">PRODUTOS</span>
+            </a>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                                <button class="close-alert">&times;</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Conteúdo da Página -->
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

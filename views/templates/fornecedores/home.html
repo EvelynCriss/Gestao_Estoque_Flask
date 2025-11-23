@@ -1,49 +1,61 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 
 {% block title %}Fornecedores{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Fornecedores</h2>
-    <a href="{{ url_for('add_fornecedor') }}" class="btn btn-primary mb-3">Adicionar Fornecedor</a>
+<div class="page-header">
+    <h1 class="page-title">Fornecedores</h1>
+    <a href="{{ url_for('add_fornecedor') }}" class="btn btn-primary">Adicionar Fornecedor</a>
+</div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, msg in messages %}
-          <div class="alert alert-{{ category }}">{{ msg }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CNPJ</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Endereço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for f in fornecedores %}
-            <tr>
-                <td>{{ f.id }}</td>
-                <td>{{ f.nome_empresa }}</td>
-                <td>{{ f.cnpj }}</td>
-                <td>{{ f.email }}</td>
-                <td>{{ f.telefone }}</td>
-                <td>{{ f.endereco }}</td>
-                <td>
-                    <a href="{{ url_for('edit_fornecedor', id=f.id) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{{ url_for('delete_fornecedor', id=f.id) }}" class="btn btn-danger btn-sm" 
-                       onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="content-section">
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome da Empresa</th>
+                    <th>CNPJ</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th style="width: 200px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if fornecedores %}
+                    {% for f in fornecedores %}
+                    <tr>
+                        <td>{{ f.id }}</td>
+                        <td><strong>{{ f.nome_empresa }}</strong></td>
+                        <td>{{ f.cnpj }}</td>
+                        <td>{{ f.email or '-' }}</td>
+                        <td>{{ f.telefone or '-' }}</td>
+                        <td>{{ f.endereco or '-' }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('edit_fornecedor', id=f.id) }}" 
+                                   class="btn btn-secondary btn-sm">Editar</a>
+                                <a href="{{ url_for('delete_fornecedor', id=f.id) }}" 
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Tem certeza que deseja deletar este fornecedor?')">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #999;">
+                                Nenhum fornecedor cadastrado ainda.
+                            <br>
+                            <a href="{{ url_for('add_fornecedor') }}" style="color: #12084f;">
+                                Clique aqui para adicionar o primeiro
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
