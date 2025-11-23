@@ -26,11 +26,13 @@ def contato():
 from controllers import login_controller
 from controllers import fornecedor_controller
 from controllers import produto_controller
+from controllers import pedido_controller
 
 # Registra as rotas diretamente na aplicação
 login_controller.configura_rotas(app)
 fornecedor_controller.configura_rotas(app)
 produto_controller.configura_rotas(app)
+pedido_controller.configura_rotas(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
