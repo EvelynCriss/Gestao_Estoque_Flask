@@ -3,7 +3,7 @@ from models.produto import Produto
 
 
 def configura_rotas(app):
-# ===== Página inicial (lista de produtos) =====
+# lista de produtos
     @app.route('/produtos')
     def listar_produtos():
         produtos = Produto.get_produtos()
@@ -16,6 +16,9 @@ def configura_rotas(app):
         if request.method == 'POST':
             nome = request.form.get('nome')
             preco = request.form.get('preco')
+            # converter o preço para formato float
+            preco = preco.replace('.', '').replace(',', '.')
+
             estoque_minimo = request.form.get('estoque_minimo')
             categoria = request.form.get('categoria')
             unidade = request.form.get('unidade')
@@ -41,6 +44,8 @@ def configura_rotas(app):
         if request.method == 'POST':
             nome = request.form.get('nome')
             preco = request.form.get('preco')
+            # converter o preço para formato float
+            preco = preco.replace('.', '').replace(',', '.')
             estoque_minimo = request.form.get('estoque_minimo')
             categoria = request.form.get('categoria')
             unidade = request.form.get('unidade')

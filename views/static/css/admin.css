@@ -250,7 +250,7 @@ body {
 .stat-value {
     font-size: 32px;
     font-weight: bold;
-    color: #006b54;
+    color: #12084f;
     margin-bottom: 5px;
 }
 
@@ -364,6 +364,19 @@ body {
     background-color: #5a6268;
 }
 
+
+.btn-secondary_item {
+    background-color: #12084f;
+    color: white;
+    margin-top: 15px;
+}
+
+.btn-secondary_item:hover {
+    background-color: #210f95;
+}
+
+
+
 .btn-danger {
     background-color: #dc3545;
     color: white;
@@ -374,12 +387,12 @@ body {
 }
 
 .btn-success {
-    background-color: #28a745;
+    background-color: #12084f;
     color: white;
 }
 
 .btn-success:hover {
-    background-color: #218838;
+    background-color: #210f95;
 }
 
 .btn-sm {
@@ -400,9 +413,10 @@ body {
 
 .form-label {
     display: block;
+    margin-top: 10px;
     margin-bottom: 8px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 20px;
     color: #333;
 }
 
@@ -417,8 +431,8 @@ body {
 
 .form-control:focus {
     outline: none;
-    border-color: #006b54;
-    box-shadow: 0 0 0 3px rgba(0, 107, 84, 0.1);
+    border-color: #12084f;
+    box-shadow: 0 0 0 3px rgba(18, 8, 79, 0.1);
 }
 
 textarea.form-control {
@@ -442,7 +456,7 @@ textarea.form-control {
 
 .container h2 {
     font-size: 28px;
-    color: #006b54;
+    color: #12084f;
     margin-bottom: 30px;
     font-weight: 600;
 }
@@ -500,7 +514,7 @@ textarea.form-control {
 }
 
 .table thead {
-    background-color: #006b54;
+    background-color: #12084f;
     color: white;
 }
 
@@ -559,7 +573,7 @@ textarea.form-control {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* ===== DASHBOARD - Ações Rápidas ===== */
+/* DASHBOARD*/
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -581,7 +595,7 @@ textarea.form-control {
 
 .action-card:hover {
     background-color: #e9ecef;
-    border-color: #006b54;
+    border-color: #12084f;
     transform: translateY(-2px);
 }
 
@@ -592,7 +606,7 @@ textarea.form-control {
 .action-text h3 {
     margin: 0;
     font-size: 16px;
-    color: #006b54;
+    color: #12084f;
 }
 
 .action-text p {
@@ -651,48 +665,5 @@ textarea.form-control {
 .activity-time {
     font-size: 12px;
     color: #999;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100%;
-    }
-    
-    .nav-item {
-        padding: 15px 20px;
-    }
-    
-    .main-content {
-        padding: 20px;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 20px;
-    }
-
-    .action-buttons {
-        flex-direction: column;
-    }
-    
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
 }
 

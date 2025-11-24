@@ -1,0 +1,56 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Produtos</h1>
+    <a href="{{ url_for('add_produto') }}" class="btn btn-primary">Adicionar Produto</a>
+</div>
+
+<div class="content-section">
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Estoque Mínimo</th>
+                    <th>Categoria</th>
+                    <th>Unidade</th>
+                    <th style="width:200px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if produtos %}
+                    {% for p in produtos %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td><strong>{{ p.nome }}</strong></td>
+                        <td>R$ {{ p.preco }}</td>
+                        <td>{{ p.estoque_minimo }}</td>
+                        <td>{{ p.categoria or '-' }}</td>
+                        <td>{{ p.unidade or '-' }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('edit_produto', id=p.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                                <a href="{{ url_for('delete_produto', id=p.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este produto?')">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" style="text-align:center; padding:40px; color:#999;">
+                            Nenhum produto cadastrado ainda.
+                            <br>
+                            <a href="{{ url_for('add_produto') }}" style="color:#12084f;">Clique aqui para adicionar o primeiro</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

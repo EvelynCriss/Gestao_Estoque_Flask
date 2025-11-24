@@ -10,7 +10,7 @@
   <div class="alert alert-success">{{ mensagem }}</div>
   {% endif %}
 
-  <form method="POST" action="{{ url_for('contato') }}">
+  <form method="POST" action="{{ url_for('contato_enviar') }}">
     <div class="mb-3">
       <label class="form-label">Nome</label>
       <input type="text" name="nome" class="form-control" required>

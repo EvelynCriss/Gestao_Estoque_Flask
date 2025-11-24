@@ -235,7 +235,6 @@ body {
 
 
 /*PÁGINA LOGIN*/
-/* CONTAINER PRINCIPAL — não afeta o body */
 .login-page-container {
     min-height: 90vh;
     display: flex;
@@ -246,12 +245,14 @@ body {
 
 /* CARD */
 .login-card {
+    background: #fff;
     width: 100%;
-    max-width: 420px;
-    padding: 35px 40px;
+    max-width: 450px;
+    padding: 35px;
     border-radius: 14px;
-    background: #ffffff;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-align: center;
+    color: #12084f;
     border-top: 4px solid #12084f;
 }
 
@@ -264,8 +265,29 @@ body {
     font-weight: 700;
 }
 
+/* MENSAGENS */
+.message-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #c3e6cb;
+}
+
+.message-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #f5c6cb;
+}
+
 /* LABEL */
-.login-card label {
+.form-label {
     display: block;
     margin-bottom: 6px;
     color: #12084f;
@@ -273,23 +295,43 @@ body {
 }
 
 /* INPUT */
-.login-card input {
+.form-input {
     width: 100%;
     padding: 12px;
     border: 1px solid #a6a6a6;
     border-radius: 8px;
     margin-bottom: 18px;
     font-size: 15px;
+    box-sizing: border-box;
 }
 
-.login-card input:focus {
+.form-input:focus {
     outline: none;
     border-color: #12084f;
     box-shadow: 0 0 6px rgba(18, 8, 79, 0.35);
 }
 
+/* CHECKBOX LEMBRAR-ME */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: #12084f;
+    cursor: pointer;
+}
+
+.form-checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #12084f;
+}
+
 /* BOTÃO */
-.login-card button {
+.btn-submit {
     width: 100%;
     padding: 12px;
     background: #12084f;
@@ -302,7 +344,7 @@ body {
     transition: 0.3s ease;
 }
 
-.login-card button:hover {
+.btn-submit:hover {
     background: #0e063f;
 }
 
@@ -311,9 +353,15 @@ body {
     font-weight: 600;
     text-decoration: none;
 }
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
 .register-text {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 20px;
+    color: #333;
 }
 
 /* Registro */
@@ -328,7 +376,7 @@ body {
 .auth-card {
     background: #fff;
     width: 100%;
-    max-width: 380px;
+    max-width: 450px;
     padding: 35px;
     border-radius: 14px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
@@ -340,6 +388,7 @@ body {
 .auth-card h1 {
     margin-bottom: 20px;
     font-size: 1.7rem;
+    font-weight: 700;
 }
 
 .auth-card form {

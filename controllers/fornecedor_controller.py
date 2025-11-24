@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for, flash
 from models.fornecedor import Fornecedor
+from models.contato import salvar_mensagem
 
 
 def configura_rotas(app):
-# ===== Página inicial (lista de fornecedores) =====
+# lista de fornecedores
     @app.route('/fornecedores')
     def listar_fornecedores():
         fornecedores = Fornecedor.get_fornecedores()
@@ -47,14 +48,15 @@ def configura_rotas(app):
 
             Fornecedor.atualizar_fornecedor(id, nome_empresa, cnpj, email, telefone, endereco)
             flash("Fornecedor atualizado com sucesso!", "success")
-            return redirect(url_for('home'))
+            return redirect(url_for('listar_fornecedores'))
 
         return render_template('fornecedores/edit.html', fornecedor=fornecedor)
 
 
     # ===== Deletar fornecedor =====
     @app.route('/fornecedores/delete/<int:id>')
-    def delete_fornecedor(id):
+    def deletar_fornecedor(id):
         Fornecedor.deletar_fornecedor(id)
         flash("Fornecedor deletado com sucesso!", "success")
-        return redirect(url_for('home'))
+        return redirect(url_for('listar_fornecedores'))
+    

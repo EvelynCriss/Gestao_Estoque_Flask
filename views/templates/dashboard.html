@@ -16,8 +16,8 @@
 
     <div class="stat-card">
         <div class="stat-info">
-            <h3 class="stat-title">Pedidos Concluídos</h3>
-            <p class="stat-value">{{ stats.pedidos_concluidos }}</p>
+            <h3 class="stat-title">Pedidos Aprovados</h3>
+            <p class="stat-value">{{ stats.pedidos_aprovados }}</p>
         </div>
     </div>
 
@@ -32,6 +32,20 @@
         <div class="stat-info">
             <h3 class="stat-title">Estoque Baixo</h3>
             <p class="stat-value">{{ stats.estoque_baixo }}</p>
+        </div>
+    </div>
+
+    <!-- Card Cotação do Dólar -->
+    <div class="stat-card">
+        <div class="stat-info">
+            <h3 class="stat-title">Cotação do Dólar</h3>
+            <p class="stat-value">
+                {% if cotacao_usd is string %}
+                    {{ cotacao_usd }}
+                {% else %}
+                    R$ {{ cotacao_usd }}
+                {% endif %}
+            </p>
         </div>
     </div>
 </div>
@@ -64,7 +78,12 @@
             </div>
         </a>
 
-        
+        <a href="{{ url_for('baixar_relatorio_excel') }}" class="action-card">
+            <div class="action-icon">📄</div>
+            <div class="action-text">
+                <h3>Relatório</h3>
+                <p>Baixar relatório</p>
+            </div>
         </a>
     </div>
 </div>
