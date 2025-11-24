@@ -133,3 +133,85 @@ function formatCNPJ(cnpj) {
 function formatTelefone(tel) {
     return tel.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
 }
+
+
+// ===== ITENS DE PEDIDO (Adicionar/Remover e preencher preço a partir de produtos) =====
+(function(){
+    document.addEventListener('DOMContentLoaded', function(){
+        const container = document.getElementById('pedido-items');
+        if(!container) return; 
+
+        let produtosData = [];
+        try{
+            const raw = container.getAttribute('data-produtos') || '[]';
+            produtosData = JSON.parse(raw);
+        }catch(e){
+            produtosData = [];
+        }
+
+        const itemsBody = container.querySelector('#items-body');
+        const addBtn = container.querySelector('#add-item');
+
+        function buildOptionsHtml(){
+            return produtosData.map(p => `<option value="${p.id}">${p.nome}</option>`).join('');
+        }
+
+        function createRow(){
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <select name="produto_id[]" class="form-control">
+                        <option value="">Selecione um produto</option>
+                        ${buildOptionsHtml()}
+                    </select>
+                </td>
+                <td><input type="number" name="quantidade[]" class="form-control" min="1" value="1"></td>
+                <td>
+                    <input type="hidden" name="preco_unitario[]" class="preco-hidden" value="0.00">
+                    <input type="text" class="form-control preco-display" value="0.00" readonly>
+                </td>
+                <td><button type="button" class="btn btn-danger btn-sm remove-item">Remover</button></td>
+            `;
+            return tr;
+        }
+
+        function setPriceForRow(selectEl){
+            const row = selectEl.closest('tr');
+            if(!row) return;
+            const hid = row.querySelector('.preco-hidden');
+            const disp = row.querySelector('.preco-display');
+            const pid = selectEl.value;
+            const prod = produtosData.find(p => String(p.id) === String(pid));
+            const price = prod && prod.preco ? Number(prod.preco).toFixed(2) : Number(0).toFixed(2);
+            if(hid) hid.value = price;
+            if(disp) disp.value = price;
+        }
+
+        if(itemsBody){
+            const selects = itemsBody.querySelectorAll('select[name="produto_id[]"]');
+            selects.forEach(s => setPriceForRow(s));
+        }
+
+        if(addBtn){
+            addBtn.addEventListener('click', function(){
+                const row = createRow();
+                itemsBody.appendChild(row);
+            });
+        }
+
+        if(itemsBody){
+            itemsBody.addEventListener('click', function(e){
+                if(e.target && e.target.classList.contains('remove-item')){
+                    const tr = e.target.closest('tr');
+                    if(tr) tr.remove();
+                }
+            });
+
+            itemsBody.addEventListener('change', function(e){
+                if(e.target && e.target.name === 'produto_id[]'){
+                    setPriceForRow(e.target);
+                }
+            });
+        }
+    });
+})();
