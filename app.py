@@ -9,7 +9,6 @@ app = Flask(
 app.secret_key = SECRET_KEY
 
 
-# ROTAS PÚBLICAS
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -19,7 +18,7 @@ def sobre():
     return render_template('sobre.html')
 
 
-# Importa e os controllers
+
 from controllers import contato_controller
 from controllers import login_controller
 from controllers import fornecedor_controller
@@ -27,7 +26,7 @@ from controllers import pedido_controller
 from controllers import produto_controller
 from controllers import dashboard_controller
 
-# Registra as rotas diretamente na aplicação
+
 contato_controller.configura_rotas(app)
 login_controller.configura_rotas(app)
 fornecedor_controller.configura_rotas(app)

@@ -11,7 +11,6 @@ def configura_rotas(app):
     def login():
         msg = ''
 
-        # Se já estiver logado, redireciona para o dashboard
         if 'loggedin' in session:
             return redirect(url_for('dashboard'))
 
@@ -50,17 +49,14 @@ def configura_rotas(app):
             email = request.form.get('email')
             senha = request.form.get('senha')
             
-            # Verifica campos
             if not nome or not email or not senha:
                 msg = 'Preencha todos os campos!'
                 return render_template('usuarios/registro.html', msg=msg)
 
-            # Email já existe?
             if Login.get_email(email):
                 msg = 'Este e-mail já está registrado!'
                 return render_template('usuarios/registro.html', msg=msg)
 
-            # Valida email
             try:
                 valid = validate_email(email)
                 email = valid.email
@@ -68,7 +64,6 @@ def configura_rotas(app):
                 msg = 'E-mail inválido!'
                 return render_template('usuarios/registro.html', msg=msg)
 
-            # Cria usuário
             Login.criar_login_usuario(nome, email, senha)
             flash('Registrado com sucesso! Faça o login.', 'success')
             return redirect(url_for('login'))

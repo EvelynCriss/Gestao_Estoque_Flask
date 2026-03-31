@@ -1,9 +1,6 @@
-// Aguarda o DOM estar completamente carregado
+
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ===== FLASH MESSAGES / ALERTS =====
-    
-    // Fechar alertas manualmente (clicando no X)
+
     const closeButtons = document.querySelectorAll('.close-alert');
     closeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -11,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Auto-fechar alertas após 5 segundos
     setTimeout(() => {
         const alerts = document.querySelectorAll('.alert');
         alerts.forEach(alert => {
@@ -21,9 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
     
     
-    // ===== CONFIRMAÇÃO DE EXCLUSÃO =====
-    
-    // Adiciona confirmação em botões/links de deletar
     const deleteButtons = document.querySelectorAll('[data-confirm-delete]');
     deleteButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -35,10 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    
-    // ===== MÁSCARAS DE INPUT (OPCIONAL) =====
-    
-    // Máscara para CNPJ: 00.000.000/0000-00
     const cnpjInputs = document.querySelectorAll('input[name="cnpj"]');
     cnpjInputs.forEach(input => {
         input.addEventListener('input', function(e) {
@@ -53,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Máscara para Telefone: (00) 00000-0000
     const telefoneInputs = document.querySelectorAll('input[name="telefone"]');
     telefoneInputs.forEach(input => {
         input.addEventListener('input', function(e) {
@@ -67,8 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     
-    // ===== HIGHLIGHT DA LINHA DA TABELA AO PASSAR O MOUSE =====
-    
     const tableRows = document.querySelectorAll('.data-table tbody tr');
     tableRows.forEach(row => {
         row.addEventListener('mouseenter', function() {
@@ -80,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     
-    // ===== FEEDBACK VISUAL AO SUBMETER FORMULÁRIO =====
     
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
@@ -95,8 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
-
-// Função para exibir um alerta customizado
 function showAlert(message, type = 'success') {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type}`;
@@ -124,18 +107,16 @@ function showAlert(message, type = 'success') {
     }
 }
 
-// Função para formatar CNPJ
+
 function formatCNPJ(cnpj) {
     return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
 }
 
-// Função para formatar Telefone
+
 function formatTelefone(tel) {
     return tel.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
 }
 
-
-// ===== ITENS DE PEDIDO (Adicionar/Remover e preencher preço a partir de produtos) =====
 (function(){
     document.addEventListener('DOMContentLoaded', function(){
         const container = document.getElementById('pedido-items');

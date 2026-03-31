@@ -11,7 +11,7 @@ def configura_rotas(app):
         pedidos = Pedido.get_pedidos()
         
         for p in pedidos:
-            # Formata data
+            
             dp = p.get('data_pedido')
             if dp:
                 try:
@@ -29,7 +29,6 @@ def configura_rotas(app):
                 except Exception:
                     p['data_pedido'] = str(dp)
 
-            # Formata valor total
             vt = p.get('valor_total')
             if vt is None:
                 p['valor_total'] = '-'

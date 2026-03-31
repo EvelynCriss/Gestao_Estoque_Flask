@@ -7,7 +7,6 @@ from openpyxl.styles import Font, Alignment
 import requests
 
 def configura_rotas(app):
-    # === DASHBOARD ===
     @app.route('/dashboard')
     def dashboard():
         if 'loggedin' not in session:
@@ -16,7 +15,6 @@ def configura_rotas(app):
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
 
-    # Estatísticas
         cursor.execute("SELECT COUNT(*) AS total FROM produtos")
         total_produtos = cursor.fetchone()['total']
 
@@ -42,18 +40,16 @@ def configura_rotas(app):
             'estoque_baixo': estoque_baixo
         }
 
-        # ===== API de Cotação (AwesomeAPI) =====
         try:
             response = requests.get('https://economia.awesomeapi.com.br/json/last/USD-BRL', timeout=5)
             data = response.json()
             cotacao_usd = float(data['USDBRL']['bid'])
         except Exception as e:
-            cotacao_usd = f"Erro ao obter cotação ({e})"
+            cotacao_usd = f"Erro ao obter cotação"
 
         return render_template('dashboard.html', stats=stats, cotacao_usd=cotacao_usd)
 
 
-    # === DOWNLOAD DE RELATÓRIO ===
     @app.route('/baixar_relatorio_excel')
     def baixar_relatorio_excel():
         conn = mysql.connector.connect(**db_config)
